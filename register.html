@@ -20,9 +20,25 @@
 					</div>
 					<div class="card shadow-lg">
 						<div class="card-body p-5">
-							<h1 class="fs-4 card-title fw-bold mb-4">Se connecter</h1>
+							<h1 class="fs-4 card-title fw-bold mb-4">S'inscrire</h1>
 							<form method="POST" class="needs-validation" novalidate="" autocomplete="off">
-								<div class="mb-3">
+                                <div class="mb-3">
+									<label class="mb-2 text-muted" for="nom">Nom</label>
+									<input id="email" type="text" class="form-control" name="name" value="" required autofocus>
+									<div class="invalid-feedback">
+										Email is invalid
+									</div>
+								</div>
+                                
+                                <div class="mb-3">
+									<label class="mb-2 text-muted" for="nom">Prenom</label>
+									<input id="email" type="text" class="form-control" name="name" value="" required autofocus>
+									<div class="invalid-feedback">
+										Email is invalid
+									</div>
+								</div>        
+                                
+                                <div class="mb-3">
 									<label class="mb-2 text-muted" for="email">Adresse email</label>
 									<input id="email" type="email" class="form-control" name="email" value="" required autofocus>
 									<div class="invalid-feedback">
@@ -33,9 +49,7 @@
 								<div class="mb-3">
 									<div class="mb-2 w-100">
 										<label class="text-muted" for="password">Password</label>
-										<a href="forgot.html" class="float-end">
-											Forgot Password?
-										</a>
+										
 									</div>
 									<input id="password" type="password" class="form-control" name="password" required>
 								    <div class="invalid-feedback">
@@ -56,7 +70,7 @@
 						</div>
 						<div class="card-footer py-3 border-0">
 							<div class="text-center">
-								Vous n'avez pas de compte ? <a href="register.html" class="text-dark">Créez-en un ici</a>
+								Vous avez un compte ? <a href="login.html" class="text-dark">Connectez-vous</a>
 							</div>
 						</div>
 					</div>
