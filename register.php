@@ -1,4 +1,12 @@
-<!DOCTYPE html>
+<?php 
+
+include 'includes/head.html';
+include 'includes/navbar.html';
+
+?>
+
+
+<!--<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +16,7 @@
     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
     <title>Quai Antique</title>
-</head>
+</head>-->
 <body>
     
       <section class="h-100">
@@ -70,7 +78,7 @@
 						</div>
 						<div class="card-footer py-3 border-0">
 							<div class="text-center">
-								Vous avez un compte ? <a href="login.html" class="text-dark">Connectez-vous</a>
+								Vous avez un compte ? <a href="login.php" class="text-dark">Connectez-vous</a>
 							</div>
 						</div>
 					</div>

@@ -71,6 +71,12 @@ h1{
     margin-bottom: 0%;
     color: white;
 }
+.test2{
+    color: #72a411;
+    font-size: 28px;
+    text-align: center;
+}
+
 .date{
     font-style: italic;
 }
