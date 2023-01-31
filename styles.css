@@ -1,0 +1,147 @@
+@font-face {
+    font-family: 'Georgia Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Georgia Bold'), url('georgiab.woff') format('woff');
+    }
+h1{
+    font-family: 'Georgia Bold'
+}
+
+.navbar-brand{
+    font-family: 'Georgia Bold';
+    
+}
+
+.landing-page {
+    position: relative;
+    padding: 20px 50px;
+}
+
+.big-title {
+    color: black;
+    font-size:  120px;
+    font-family: 'Abril FatFace', cursive;
+    font-weight: 100;
+    width: 60%;
+}
+#img-overlay{
+    filter : brightness(70%);
+}
+
+#title{
+    vertical-align: middle;
+    color: white;/*#212529*/
+    text-align: center;
+    font-size: 42px;
+    margin-top: -30%;
+    margin-bottom: 22%;
+}
+#title2{
+    vertical-align: middle;
+    color: white;/*#212529*/
+    text-align: center;
+    font-size: 36px;
+    margin-top: -22%;
+    margin-bottom: 22%;
+}
+#button_header{
+    position: absolute;
+    vertical-align: middle;
+    color: white;/*#212529*/
+    text-align: center;
+    font-size: 36px;
+    margin-top: -20%;
+    margin-bottom: 22%;
+    justify-content: center;
+}
+
+#test{
+    margin-top: -21%;
+    padding-bottom: 22%;
+}
+
+
+.row{
+    margin-top: 2%;
+    margin-bottom: 6%;
+}
+
+#footer{
+    margin-bottom: 0%;
+    color: white;
+}
+.date{
+    font-style: italic;
+}
+
+.btn-custom{
+    width: 200px;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #72a411;
+    border: 0;
+    padding: 14px 20px;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border-radius: 8px;
+    margin-top: 20px;
+    transition: all 0.5s;
+}
+.btn-custom:hover {
+    background-color: #628d0f; 
+    color: white;
+  }
+
+.featurette-divider{
+    margin: 5rem 0;
+}
+hr{
+    height: 2px;
+    background: #72a411;
+    opacity: 1;
+    border-top: none;
+}
+#hr{
+   height: 2px;
+   background: #72a411;
+
+}
+p{
+    text-align: center;
+}
+h3{
+    text-align: center;
+}
+img{
+    margin: auto;
+    display: block;
+}
+
+
+
+
+/*LOGIN PAGE*/
+.login{
+    border: 2px;
+}
+
+@media  screen and (min-width:874px) {
+    p{
+        text-align: left;
+    }
+    h3{
+        text-align: left;
+    }
+    #title{
+        font-size: 90px;
+    }
+
+
+   
+}
+
+
+
