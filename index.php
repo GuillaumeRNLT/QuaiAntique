@@ -29,6 +29,57 @@ include 'includes/header.html';
         </div>
 
 
+        <div class="container">
+          <div class="row">
+<h2>Photos</h2>
+            <hr>
+<?php
+// Include the database configuration file
+include 'includes/connect.php';
+
+// Get images from the database
+$query = $pdo->query("SELECT * FROM images ORDER BY uploaded_on DESC");
+
+
+if($query->rowCount() > 0){
+    while($row = $query->fetch(PDO::FETCH_ASSOC)){
+        $imageURL = 'uploads/'.$row["file_name"];
+        $image_title = $row['title'];
+        $image_id = $row['id'];
+        if(is_array($row)){
+           $row["title"]. "\n";
+           //$image_title = $row['title'];
+      }
+        
+?>
+    
+      <div class="col-md-4">
+      <div><?php echo $image_title ." ". $image_id;?>
+        <img src="<?php echo $imageURL; ?>"  alt=""  class="img-thumbnail"/>
+        <!--<form method="POST" action="panel.php" >
+        <input class="" type="text" name="new_title"  id="new_title" placeholder="modifier titre">
+        <button type="submit" name="modify_title" class="btn btn-primary" >Modifier</button>
+        <button type="submit" name="delete" class="btn btn-danger">Supprimer</button>
+        </form>-->
+        </div>
+      </div>
+<?php }
+}else{ ?>
+    <p>Pas d'image trouvée...</p>
+<?php } ?>
+
+<div class=" d-grid gap-2 col-2 mx-auto">
+            <button id="" type="button" class="btn btn-custom center-block">Réserver</button>
+        </div>
+
+
+</div>
+</div>
+
+
+
+
+
 
 
 <?php
