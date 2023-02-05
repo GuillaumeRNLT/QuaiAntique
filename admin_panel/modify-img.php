@@ -3,14 +3,19 @@
 include 'head.html';
 include 'panelnavbar.html';
 include '../includes/connect.php';
+
+if(isset($_POST["modify"])){
+    $id_img = $_POST['id-img'];
+    $modify_title = $_POST['title-modify'];
+    $modify = $pdo->query("UPDATE images SET title = '$modify_title' WHERE id = $id_img");
+}
 ?>
-
-<h1>Modifier/Supprimer une image</h1>
-
 
 
 <div class="container">
+<h1>Modifier une image</h1>
     <div class="row">
+
 
 <?php
 // Get images from the database
@@ -25,10 +30,8 @@ if($query->rowCount() > 0){
         if(is_array($row)){
            $row["title"]. "\n";
            //$image_title = $row['title'];
-      }
-        
-?>
-    
+      }      
+?> 
       <div class="col-md-4 testcontainer">
       <div class="overlay"><h6 class="texthover"><?php echo $image_title ."  ID = ". $image_id;?></h6>
         <img src="<?php echo $imageURL; ?>"  alt=""  class="img-thumbnail img-gallery" />
@@ -39,6 +42,9 @@ if($query->rowCount() > 0){
 }else{ ?>
     <p>Pas d'image trouvée...</p>
 <?php } ?>
+
+
+
 
 <div class="mb-3">
   <h1>Modifier le titre</h1>
@@ -56,13 +62,7 @@ if($query->rowCount() > 0){
   </div>
 </fom>
 
+
 <?php
-
-if(isset($_POST["modify"])){
-    $id_img = $_POST['id-img'];
-    $modify_title = $_POST['title-modify'];
-    $modify = $pdo->query("UPDATE images SET title = '$modify_title' WHERE id = $id_img");
-}
-
 include '../includes/footer.html';
 ?>

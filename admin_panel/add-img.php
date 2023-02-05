@@ -3,42 +3,8 @@
 include 'head.html';
 include 'panelnavbar.html';
 include '../includes/connect.php';
-?>
 
-<h1>Ajouter une image</h1>
-
-
-
-
-
-<div class="container">
-<div class="mb-3" style="margin-top:100px">
-  <h1>Ajouter une image</h1>
-  <form method="POST" action="add-img.php" enctype="multipart/form-data">
-    <!--<div class="form-floating mb-3">-->
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="inputGroup-sizing-default">Titre : </span>
-        <input type="text" class="form-control" name="title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
-    </div>
-<!--<input type="text" class="form-control"  name="title" placeholder="Ajouter un titre" required>
-    </div>-->
-  <label for="images" class="drop-container">
-  <input type="file" id="images" name="file" accept="image/*" required>
-</label>
-<!--<button class="btn btn-success" type="submit" name="submit">Ajouter</button>-->
-<div class="d-grid gap-2 col-6 mx-auto">
-  <button class="btn btn-success" type="submit" name="submit">Ajouter</button>
-</div>
-</form>
-</div>
-</div>
-
-
-
-<?php
 $statusMsg = '';
-
-
 
 if(isset($_POST["submit"]) && !empty($_FILES["file"]["name"]) && isset($_POST["title"])){
     // Allow certain file formats
@@ -76,10 +42,59 @@ echo $statusMsg;
 ?>
 
 
+<div class="container">
+<h1>Ajouter une image</h1>
+    <div class="row">
+
+<?php
+// Get images from the database
+$query = $pdo->query("SELECT * FROM images ORDER BY uploaded_on DESC");
+
+
+if($query->rowCount() > 0){
+    while($row = $query->fetch(PDO::FETCH_ASSOC)){
+        $imageURL = '../uploads/'.$row["file_name"];
+        $image_title = $row['title'];
+        $image_id = $row['id'];
+        if(is_array($row)){
+           $row["title"]. "\n";
+           //$image_title = $row['title'];
+      }      
+?>
+    <div class="col-md-4 testcontainer">
+      <div class="overlay"><h6 class="texthover"><?php echo $image_title ."  ID = ". $image_id;?></h6>
+        <img src="<?php echo $imageURL; ?>"  alt=""  class="img-thumbnail img-gallery" />
+
+        </div>
+      </div>
+<?php }
+}else{ ?>
+    <p>Pas d'image trouvée...</p>
+<?php } ?>
 
 
 
-
+<div class="container">
+<div class="mb-3" style="margin-top:100px">
+  <h1>Ajouter une image</h1>
+  <form method="POST" action="add-img.php" enctype="multipart/form-data">
+    <!--<div class="form-floating mb-3">-->
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-default">Titre : </span>
+        <input type="text" class="form-control" name="title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+    </div>
+<!--<input type="text" class="form-control"  name="title" placeholder="Ajouter un titre" required>
+    </div>-->
+  <label for="images" class="drop-container">
+  <input type="file" id="images" name="file" accept="image/*" required>
+</label>
+<!--<button class="btn btn-success" type="submit" name="submit">Ajouter</button>-->
+<div class="d-grid gap-2 col-6 mx-auto">
+  <button class="btn btn-success" type="submit" name="submit">Ajouter</button>
+</div>
+</form>
+</div>
+</div>
 
 
 <?php
