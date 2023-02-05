@@ -3,6 +3,7 @@
 include 'includes/head.html';
 include 'includes/navbar.html';
 include 'includes/header.html';
+include 'includes/connect.php';
 
 
 ?>
@@ -34,8 +35,6 @@ include 'includes/header.html';
 <h2>Photos</h2>
             <hr>
 <?php
-// Include the database configuration file
-include 'includes/connect.php';
 
 // Get images from the database
 $query = $pdo->query("SELECT * FROM images ORDER BY uploaded_on DESC");
@@ -53,14 +52,10 @@ if($query->rowCount() > 0){
         
 ?>
     
-      <div class="col-md-4">
-      <div><?php echo $image_title ." ". $image_id;?>
-        <img src="<?php echo $imageURL; ?>"  alt=""  class="img-thumbnail"/>
-        <!--<form method="POST" action="panel.php" >
-        <input class="" type="text" name="new_title"  id="new_title" placeholder="modifier titre">
-        <button type="submit" name="modify_title" class="btn btn-primary" >Modifier</button>
-        <button type="submit" name="delete" class="btn btn-danger">Supprimer</button>
-        </form>-->
+      <div class="col-md-4 testcontainer">
+      <div class="overlay"><h6 class="texthover"><?php echo $image_title ." ". $image_id;?></h6>
+        <img src="<?php echo $imageURL; ?>"  alt=""  class="img-thumbnail img-gallery" />
+
         </div>
       </div>
 <?php }
@@ -72,7 +67,7 @@ if($query->rowCount() > 0){
             <button id="" type="button" class="btn btn-custom center-block">Réserver</button>
         </div>
 
-
+<h6>test</h6>
 </div>
 </div>
 
