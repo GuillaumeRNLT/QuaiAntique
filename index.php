@@ -21,9 +21,10 @@ include 'includes/connect.php';
                 <hr>
                 <p>Associant simplicité raffinée et inventivité, la carte met en avant des produits frais et de qualité. Pour l’apéritif,
                  une sélection d’épicerie fine à partager est suggérée tandis qu’une jolie carte de desserts de saison propose la touche sucrée et gourmande de fin de repas.</p>
-              </div>
-              <div class="d-grid gap-2 col-2 mx-auto" id="button">
+                 </div>
+              <div class="d-grid gap-2 col-2" id="button">
                 <button id="" type="button" class="btn btn-custom">Carte</button>
+                
             </div>
             </div>
           </div>
@@ -53,21 +54,23 @@ if($query->rowCount() > 0){
 ?>
     
       <div class="col-md-4 testcontainer">
-      <div class="overlay"><h6 class="texthover"><?php echo $image_title ." ". $image_id;?></h6>
-        <img src="<?php echo $imageURL; ?>"  alt=""  class="img-thumbnail img-gallery" />
-
-        </div>
+          <img src="<?php echo $imageURL; ?>"  alt=""  class="img-thumbnail img-gallery" />
+          <h6 class="texthover"><?php echo $image_title;?></h6>
       </div>
 <?php }
 }else{ ?>
     <p>Pas d'image trouvée...</p>
 <?php } ?>
 
-<div class=" d-grid gap-2 col-2 mx-auto">
-            <button id="" type="button" class="btn btn-custom center-block">Réserver</button>
-        </div>
 
-<h6>test</h6>
+<div class="container">
+  <div class="row">
+    <div class=" d-grid gap-2 col-2 mx-auto">
+        <button id="" type="button" class="btn btn-custom center-block">Réserver</button>
+    </div>
+</div>
+</div> 
+
 </div>
 </div>
 

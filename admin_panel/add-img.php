@@ -89,8 +89,8 @@ if($query->rowCount() > 0){
   <input type="file" id="images" name="file" accept="image/*" required>
 </label>
 <!--<button class="btn btn-success" type="submit" name="submit">Ajouter</button>-->
-<div class="d-grid gap-2 col-6 mx-auto">
-  <button class="btn btn-success" type="submit" name="submit">Ajouter</button>
+<div class="col-auto">
+  <button class="btn btn-primary mb-3" type="submit" name="submit">Ajouter</button>
 </div>
 </form>
 </div>

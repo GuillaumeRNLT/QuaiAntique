@@ -1,5 +1,4 @@
-
-/*(function () {
+(function () {
 	'use strict'
 
 	// Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -17,16 +16,4 @@
 				form.classList.add('was-validated')
 			}, false)
 		})
-})()*/
-
-
-/*$(document).ready(() => {
-	$('.hoverimage h6').hide(2000).
-});
-
-$(document).ready(() => {
-    $('.hoverimage').animate({width:'500px'}, 2000).delay(1000).animate({height:'500px'}, 2000)
-});*/
-$(document).ready(function(){
-	$('h1 h2 h3').css({"color":red});
- });
+})()

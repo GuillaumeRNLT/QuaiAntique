@@ -20,27 +20,28 @@
 })()*/
 
 
-/*$(document).ready(() => {
-	$('.hoverimage h6').hide(2000).
-});
 
-$(document).ready(() => {
-    $('.hoverimage').animate({width:'500px'}, 2000).delay(1000).animate({height:'500px'}, 2000)
-});*/
+
 $(document).ready(function(){
-	
-	//$('.texthover').css('background-color', 'red');
-	$('.texthover').hide();
-	/*$('.img-gallery').hover(function(){
-		$('.texthover').show();
-	})*/
-
-	$(".img-gallery").mouseover(function(){
-		$(".texthover").show();
-	  });
-	  $(".img-gallery").mouseout(function(){
-		$(".texthover").hide();
-	  });
-	
-
- });
+	$(".needs-validation").validate({
+		rules:{
+			name:"required",
+			surname:"required",
+			email:"required",
+			password:{
+				required: true,
+				minlength: 8
+			},
+		},messages:{
+				name: "Veuillez saisir votre nom",
+				surname: "Veuillez saisir votre Prenom",
+				email: "Veuillez saisir une adresse email valide",
+				password:{
+					required:"Veuillez saisir un mot de passe",
+					minlength: "Le mot de passe doit avoir au moins 8 caractères"
+		},
+		
+		}
+	}
+	);
+  });

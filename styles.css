@@ -128,15 +128,50 @@ img{
 
 
 
+.testcontainer {
+    position: relative;
+   /* width: 50%;
+    max-width: 300px;*/
+}
+.texthover {
+    position: absolute;
+    bottom: 0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5); /* Black see-through */
+    color: #f1f1f1;
+    width: 95%;
+    transition: .5s ease;
+    opacity:0;
+    color: white;
+    font-size: 20px;
+    padding: 20px;
+    text-align: center;
+  }
+  .testcontainer:hover .texthover {
+    opacity: 1;
+  }
 
+/*form label .error{
+    color: red;
+}*/
+.error{
+    color: red;
 
+}
+.erreur{
+    color: red;
+}
+
+.menu-title{
+    font-weight: bold;
+}
 
 /*LOGIN PAGE*/
 .login{
     border: 2px;
 }
 
-@media  screen and (min-width:874px) {
+/*@media  screen and (min-width:874px) {
     p{
         text-align: left;
     }
@@ -149,7 +184,7 @@ img{
 
 
    
-}
+}*/
 
 /*PANEL IMAGE*/
 .drop-container {

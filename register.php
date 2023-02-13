@@ -2,21 +2,82 @@
 
 include 'includes/head.html';
 include 'includes/navbar.html';
+include 'includes/connect.php';
+error_reporting(E_ERROR | E_PARSE);
+
+ $error="";
+if(!empty($_POST)){
+    if(isset($_POST["surname"], $_POST["name"], $_POST["email"], $_POST["password"], $_POST["allergy"])
+    && !empty($_POST["surname"]) && !empty($_POST["name"]) && !empty($_POST["email"]) && !empty($_POST["password"]) 
+	&& !empty($_POST["allergy"])) 
+    {
+        $surname = strip_tags($_POST["surname"]);
+        $name = strip_tags($_POST["name"]);
+        $email = $_POST["email"];
+        if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
+            //die("L'adresse email est incorrecte");
+			$error="L'adresse email est incorrecte";
+        }
+        $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+		$allergy = $_POST["allergy"];
+		$convives = $_POST["convives"];
+
+        //ajoutez ici controle souhaités
+
+		//Vérification si email existe
+		$sql ="SELECT email FROM users WHERE email=:email";
+		$query= $pdo -> prepare($sql);
+		$query-> bindParam(':email', $email, PDO::PARAM_STR);
+		$query-> execute();
+		$results = $query -> fetchAll(PDO::FETCH_OBJ);
+		$cnt=1;
+		if($query -> rowCount() > 0)
+		{
+		echo "<span style='color:red'> Cette adresse email existe déjà .</span>";
+ 		echo "<script>$('#submit').prop('disabled',true);</script>";
+		$error=" Cette adresse email existe déjà.";
+		}else{
+		$sql = "INSERT INTO users (surname, name, email, password, allergy, convives) VALUES ('$surname', '$name', '$email', '$password', '$allergy', $convives)";
+
+        $query = $pdo->prepare($sql);
+        $query->bindValue(':surname', $surname, PDO::PARAM_STR);
+        $query->bindValue(":name", $name, PDO::PARAM_STR);
+        $query->bindValue(":email", $email, PDO::PARAM_STR);
+        $query->bindValue(":password", $password, PDO::PARAM_STR);
+		$query->bindValue(":allergy", $allergy, PDO::PARAM_STR);
+		$query->bindValue(":convives", $convives, PDO::PARAM_INT);
+        $query->execute();
+		}
+	}
+}
+
+
+		//suite
+
+       /* $sql = "INSERT INTO users (surname, name, email, password, allergy, convives) VALUES ('$surname', '$name', '$email', '$password', '$allergy', $convives)";
+
+        $query = $pdo->prepare($sql);
+        $query->bindValue(':surname', $surname, PDO::PARAM_STR);
+        $query->bindValue(":name", $name, PDO::PARAM_STR);
+        $query->bindValue(":email", $email, PDO::PARAM_STR);
+        $query->bindValue(":password", $password, PDO::PARAM_STR);
+		$query->bindValue(":allergy", $allergy, PDO::PARAM_STR);
+		$query->bindValue(":convives", $convives, PDO::PARAM_INT);
+        $query->execute();
+        
+    
+    }else{
+        die ("LE FORMULAIRE EST INCOMPL2");
+    }
+}*/
+
+
+
 
 ?>
 
 
-<!--<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" 
-    rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
-    <title>Quai Antique</title>
-</head>-->
+
 <body>
     
       <section class="h-100">
@@ -32,7 +93,7 @@ include 'includes/navbar.html';
 							<form method="POST" class="needs-validation" novalidate="" autocomplete="off">
                                 <div class="mb-3">
 									<label class="mb-2 text-muted" for="nom">Nom</label>
-									<input id="email" type="text" class="form-control" name="name" value="" required autofocus>
+									<input id="name" type="text" class="form-control" name="name" value="" required autofocus>
 									<div class="invalid-feedback">
 										Email is invalid
 									</div>
@@ -40,7 +101,7 @@ include 'includes/navbar.html';
                                 
                                 <div class="mb-3">
 									<label class="mb-2 text-muted" for="nom">Prenom</label>
-									<input id="email" type="text" class="form-control" name="name" value="" required autofocus>
+									<input id="lastname" type="text" class="form-control" name="surname" value="" required autofocus>
 									<div class="invalid-feedback">
 										Email is invalid
 									</div>
@@ -64,12 +125,32 @@ include 'includes/navbar.html';
 								    	Password is required
 							    	</div>
 								</div>
+								<div class="mb-3">
+									<label class="mb-2 text-muted" for="email">Alergies</label>
+										<select class="form-select" name="allergy">
+											<option value="Aucune">Aucune</option>
+  											<option value="Blé">Blé</option>
+  											<option value="Arachides">Arachides</option>
+  											<option value="Oeufs">Oeufs</option>
+  											<option value="Lait">Lait</option>
+										</select>
+									<div class="invalid-feedback">
+										Alergies
+									</div>
+								</div>
+								<div class="mb-3">
+									<label class="mb-2 text-muted" for="convives">Convives</label>
+										<input class="form-control" type="number" name="convives" valeur="2">
+									<div class="invalid-feedback">
+										Alergies
+									</div>
+								</div>
 
 								<div class="d-flex align-items-center">
 									<div class="form-check">
 										<input type="checkbox" name="remember" id="remember" class="form-check-input">
 										<label for="remember" class="form-check-label">Remember Me</label>
-									</div>
+									</div>-
 									<button type="submit" class="btn btn-primary ms-auto">
 										Login
 									</button>
@@ -83,7 +164,7 @@ include 'includes/navbar.html';
 						</div>
 					</div>
 					<div class="text-center mt-5 text-muted">
-						Copyright &copy; 2017-2021 &mdash; Your Company 
+						Copyright &copy; 2023 &mdash; Quai Antique 
 					</div>
 				</div>
 			</div>
@@ -92,6 +173,8 @@ include 'includes/navbar.html';
 
 
 
-
+<?php
+include 'includes/footer.html';
+?>
 </body>
 </html>

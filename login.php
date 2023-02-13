@@ -2,20 +2,62 @@
 
 include 'includes/head.html';
 include 'includes/navbar.html';
+include 'includes/connect.php';
 
+$erreur="";
+
+if(!empty($_POST)){
+    if(isset($_POST["email"], $_POST["password"]) && !empty($_POST['email'] && !empty($_POST["password"]))){
+        if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
+            //die("Ce nest pas un email");
+        }
+
+        if( $_POST["email"] == 'omkara88@hotmail.com'){
+
+
+
+            $sql = "SELECT * FROM admin WHERE email = :email";
+            $query = $pdo->prepare($sql);
+            $query->bindvalue(":email", $_POST["email"], PDO::PARAM_STR);
+            $query->execute();
+            $admin = $query->fetch();
+            if(!$admin){
+                die("Lutilisateur nexiste pas");
+            }
+            //var_dump($admin);
+            if(!password_verify($_POST["password"], $admin["password"])){
+				$erreur="Mauvais login ou mot de passe!";
+				//die();
+            }else{
+				header("Location: admin_panel/panel.php");
+			}
+            //header("Location: admin_panel/panel.php");
+
+        }else{
+            $sql = "SELECT * FROM users WHERE email = :email";
+            $query = $pdo->prepare($sql);
+            $query->bindvalue(":email", $_POST["email"], PDO::PARAM_STR);
+            $query->execute();
+            $user = $query->fetch();
+            if(!$user){
+                $erreur="Mauvais login ou mot de passe!";
+            }
+            //var_dump($user);
+            if(!password_verify($_POST["password"], $user["password"])){
+                $erreur="Mauvais login ou mot de passe!";
+            }else{
+				header("Location: index.php");
+			}
+            //header("Location: index.php");
+        }
+	}
+}
 ?>
 
-<!--<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" 
-    rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
-    <title>Quai Antique</title>
-</head>-->
+
+
+
+
 <body>
     
       <section class="h-100">
@@ -28,10 +70,11 @@ include 'includes/navbar.html';
 					<div class="card shadow-lg">
 						<div class="card-body p-5">
 							<h1 class="fs-4 card-title fw-bold mb-4">Se connecter</h1>
-							<form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+							<form method="POST" class="needs-validation" novalidate="" autocomplete="off" action="login.php">
 								<div class="mb-3">
 									<label class="mb-2 text-muted" for="email">Adresse email</label>
-									<input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+									<div class="erreur"><?php echo $erreur; ?></div>
+									<input id="email" type="email" class="form-control" name="email" value="" required >
 									<div class="invalid-feedback">
 										Email is invalid
 									</div>
@@ -55,7 +98,7 @@ include 'includes/navbar.html';
 										<input type="checkbox" name="remember" id="remember" class="form-check-input">
 										<label for="remember" class="form-check-label">Remember Me</label>
 									</div>
-									<button type="submit" class="btn btn-primary ms-auto">
+									<button type="submit" class="btn btn-custom ms-auto">
 										Login
 									</button>
 								</div>
@@ -68,15 +111,13 @@ include 'includes/navbar.html';
 						</div>
 					</div>
 					<div class="text-center mt-5 text-muted">
-						Copyright &copy; 2017-2021 &mdash; Your Company 
+						Copyright &copy; 2023 &mdash; Quai Antique 
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 
-
-
-
-</body>
-</html>
+<?php
+include 'includes/footer.html';
+?>
