@@ -1,20 +1,17 @@
 <?php 
 
 include 'includes/head.html';
-include 'includes/navbar.html';
 include 'includes/connect.php';
 
-$erreur="";
+$error="";
 
 if(!empty($_POST)){
     if(isset($_POST["email"], $_POST["password"]) && !empty($_POST['email'] && !empty($_POST["password"]))){
         if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
-            //die("Ce nest pas un email");
+			$error="email non valide";
         }
 
         if( $_POST["email"] == 'omkara88@hotmail.com'){
-
-
 
             $sql = "SELECT * FROM admin WHERE email = :email";
             $query = $pdo->prepare($sql);
@@ -22,16 +19,14 @@ if(!empty($_POST)){
             $query->execute();
             $admin = $query->fetch();
             if(!$admin){
-                die("Lutilisateur nexiste pas");
+                $error="Lutilisateur nexiste pas";
             }
-            //var_dump($admin);
-            if(!password_verify($_POST["password"], $admin["password"])){
-				$erreur="Mauvais login ou mot de passe!";
-				//die();
+            if(!password_verify($_POST["password"], $admin["password"]) && strlen($_POST['password'] < 8)){
+				$error="Mauvais login ou mot de passe!";
+
             }else{
 				header("Location: admin_panel/panel.php");
 			}
-            //header("Location: admin_panel/panel.php");
 
         }else{
             $sql = "SELECT * FROM users WHERE email = :email";
@@ -40,15 +35,25 @@ if(!empty($_POST)){
             $query->execute();
             $user = $query->fetch();
             if(!$user){
-                $erreur="Mauvais login ou mot de passe!";
+                $error="Mauvais login ou mot de passe!";
             }
-            //var_dump($user);
-            if(!password_verify($_POST["password"], $user["password"])){
-                $erreur="Mauvais login ou mot de passe!";
+            if(!password_verify($_POST["password"], $user["password"]) && strlen($_POST['password'] < 8)){
+                $error="Mauvais login ou mot de passe!";
             }else{
-				header("Location: index.php");
+				session_start();
+				$_SESSION["user"] = [
+					"id" => $user['id'],
+					"name" => $user['name'],
+					"email" => $_POST["email"],
+					"surname"=> $user["surname"],
+					"allergy" =>$user["allergy"],
+					"convives" => $user["convives"]
+				];
+				
+				header("Location: profil.php");
+
 			}
-            //header("Location: index.php");
+
         }
 	}
 }
@@ -65,16 +70,18 @@ if(!empty($_POST)){
 			<div class="row justify-content-sm-center h-100">
 				<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
 					<div class="text-center my-5">
-						<img src="images/Logo.svg" alt="logo" width="300">
+						<a href="index.php">
+							<img src="images/Logo.svg" alt="logo" width="300" href="index.php">
+						</a>
 					</div>
 					<div class="card shadow-lg">
 						<div class="card-body p-5">
-							<h1 class="fs-4 card-title fw-bold mb-4">Se connecter</h1>
+							<h2 class="card-title mb-4">Se connecter</h2>
 							<form method="POST" class="needs-validation" novalidate="" autocomplete="off" action="login.php">
 								<div class="mb-3">
 									<label class="mb-2 text-muted" for="email">Adresse email</label>
-									<div class="erreur"><?php echo $erreur; ?></div>
-									<input id="email" type="email" class="form-control" name="email" value="" required >
+									<div class="erreur"><?php echo $error; ?></div>
+									<input id="email" type="email" class="form-control" name="email" value="" id="email" required >
 									<div class="invalid-feedback">
 										Email is invalid
 									</div>
@@ -95,10 +102,10 @@ if(!empty($_POST)){
 
 								<div class="d-flex align-items-center">
 									<div class="form-check">
-										<input type="checkbox" name="remember" id="remember" class="form-check-input">
+										<input type="checkbox" name="remember" id="rememberMe" class="form-check-input">
 										<label for="remember" class="form-check-label">Remember Me</label>
 									</div>
-									<button type="submit" class="btn btn-custom ms-auto">
+									<button type="submit" class="btn btn-custom ms-auto" onclick="lsRememberMe()">
 										Login
 									</button>
 								</div>
@@ -119,5 +126,5 @@ if(!empty($_POST)){
 	</section>
 
 <?php
-include 'includes/footer.html';
+include 'includes/footer.php';
 ?>

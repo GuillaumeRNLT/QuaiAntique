@@ -1,9 +1,10 @@
 <?php
-
+session_start();
 include 'head.html';
 include 'panelnavbar.html';
 include '../includes/connect.php';
 error_reporting(E_ERROR | E_PARSE);
+
 
 if(!empty($_POST)){
   if(isset($_POST["title"], $_POST["description"], $_POST["price"], $_POST["categories"])
@@ -27,8 +28,8 @@ if(!empty($_POST)){
 
 ?>
 
-
-<div class="container">
+<div class="container d-flex align-items-center " style="height: 80vh;">
+  <div class="container text-center">
         <div class="row">
         <div class="mb-3">
   <h1>Ajouter un plat</h1>
@@ -48,11 +49,11 @@ if(!empty($_POST)){
     <div class="mb-3">
 									<label class="mb-2 text-muted" for="">Catégories</label>
 										<select class="form-select" name="categories" required>
-											<option value="Entrées">Entrées</option>
-  											<option value="Plats">Plats</option>
-  											<option value="Desserts">Desserts</option>
-  											<option value="Salades">Salades</option>
-  											<option value="Burgers">Burgers</option>
+											<option value="ENTREES">ENTREES</option>
+  											<option value="PLATS">PLATS</option>
+  											<option value="DESSERTS">DESSERTS</option>
+  											<option value="SALADES">SALADES</option>
+  											<option value="BURGERS">BURGERS</option>
 										</select>
 									<div class="invalid-feedback">
 										
@@ -67,24 +68,8 @@ if(!empty($_POST)){
 </div>
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
 
 <?php
-include '../includes/footer.html';
+include 'footer.html';
 ?>

@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include 'head.html';
 include 'panelnavbar.html';
 include '../includes/connect.php';
@@ -18,7 +18,6 @@ if(isset($_POST["modify"])){
 
 
 <?php
-// Get images from the database
 $query = $pdo->query("SELECT * FROM images ORDER BY uploaded_on DESC");
 
 
@@ -29,7 +28,6 @@ if($query->rowCount() > 0){
         $image_id = $row['id'];
         if(is_array($row)){
            $row["title"]. "\n";
-           //$image_title = $row['title'];
       }      
 ?> 
       <div class="col-md-4 testcontainer">
@@ -43,7 +41,7 @@ if($query->rowCount() > 0){
     <p>Pas d'image trouvée...</p>
 <?php } ?>
 
-
+</div>
 
 
 <div class="mb-3">
@@ -61,8 +59,10 @@ if($query->rowCount() > 0){
     <button type="submit" name="modify" class="btn btn-primary mb-3">Modifier</button>
   </div>
 </fom>
+</div>
+</div>
 
 
 <?php
-include '../includes/footer.html';
+include 'footer.html';
 ?>

@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include 'head.html';
 include 'panelnavbar.html';
 include '../includes/connect.php';
@@ -29,7 +29,6 @@ if($query->rowCount() > 0){
         $image_id = $row['id'];
         if(is_array($row)){
            $row["title"]. "\n";
-           //$image_title = $row['title'];
       }     
 ?>
       <div class="col-md-4 testcontainer">
@@ -43,7 +42,7 @@ if($query->rowCount() > 0){
     <p>Pas d'image trouvée...</p>
 <?php } ?>
 
-
+</div>
 
 <div class="mb-3" style="margin-top:100px">
   <h1>Supprimer une image</h1>
@@ -56,10 +55,10 @@ if($query->rowCount() > 0){
     <button type="submit" name="delete" class="btn btn-primary mb-3">Supprimer</button>
   </div>
 </fom>
-
+</div>
 </div>
 </div>
 
 <?php
-include '../includes/footer.html';
+include 'footer.html';
 ?>

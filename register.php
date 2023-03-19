@@ -1,7 +1,6 @@
 <?php 
-
+session_start();
 include 'includes/head.html';
-include 'includes/navbar.html';
 include 'includes/connect.php';
 error_reporting(E_ERROR | E_PARSE);
 
@@ -15,14 +14,12 @@ if(!empty($_POST)){
         $name = strip_tags($_POST["name"]);
         $email = $_POST["email"];
         if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
-            //die("L'adresse email est incorrecte");
 			$error="L'adresse email est incorrecte";
         }
         $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 		$allergy = $_POST["allergy"];
 		$convives = $_POST["convives"];
 
-        //ajoutez ici controle souhaités
 
 		//Vérification si email existe
 		$sql ="SELECT email FROM users WHERE email=:email";
@@ -47,32 +44,23 @@ if(!empty($_POST)){
 		$query->bindValue(":allergy", $allergy, PDO::PARAM_STR);
 		$query->bindValue(":convives", $convives, PDO::PARAM_INT);
         $query->execute();
+
+		//session
+		session_start();
+				$_SESSION["user"] = [
+					"id" => $user['id'],
+					"name" => $_POST['name'],
+					"email" => $_POST["email"],
+					"surname"=> $_POST["surname"],
+					"allergy" =>$_POST["allergy"],
+					"convives" => $_POST["convives"]
+				];
+				
+				header("Location: profil.php");
 		}
+		
 	}
 }
-
-
-		//suite
-
-       /* $sql = "INSERT INTO users (surname, name, email, password, allergy, convives) VALUES ('$surname', '$name', '$email', '$password', '$allergy', $convives)";
-
-        $query = $pdo->prepare($sql);
-        $query->bindValue(':surname', $surname, PDO::PARAM_STR);
-        $query->bindValue(":name", $name, PDO::PARAM_STR);
-        $query->bindValue(":email", $email, PDO::PARAM_STR);
-        $query->bindValue(":password", $password, PDO::PARAM_STR);
-		$query->bindValue(":allergy", $allergy, PDO::PARAM_STR);
-		$query->bindValue(":convives", $convives, PDO::PARAM_INT);
-        $query->execute();
-        
-    
-    }else{
-        die ("LE FORMULAIRE EST INCOMPL2");
-    }
-}*/
-
-
-
 
 ?>
 
@@ -85,11 +73,13 @@ if(!empty($_POST)){
 			<div class="row justify-content-sm-center h-100">
 				<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
 					<div class="text-center my-5">
-						<img src="images/Logo.svg" alt="logo" width="300">
+						<a href="index.php">
+							<img src="images/Logo.svg" alt="logo" width="300">
+						</a>
 					</div>
 					<div class="card shadow-lg">
 						<div class="card-body p-5">
-							<h1 class="fs-4 card-title fw-bold mb-4">S'inscrire</h1>
+							<h2 class="card-title mb-4">S'inscrire</h2>
 							<form method="POST" class="needs-validation" novalidate="" autocomplete="off">
                                 <div class="mb-3">
 									<label class="mb-2 text-muted" for="nom">Nom</label>
@@ -151,7 +141,7 @@ if(!empty($_POST)){
 										<input type="checkbox" name="remember" id="remember" class="form-check-input">
 										<label for="remember" class="form-check-label">Remember Me</label>
 									</div>-
-									<button type="submit" class="btn btn-primary ms-auto">
+									<button type="submit" class="btn btn-custom ms-auto">
 										Login
 									</button>
 								</div>
@@ -173,8 +163,5 @@ if(!empty($_POST)){
 
 
 
-<?php
-include 'includes/footer.html';
-?>
 </body>
 </html>

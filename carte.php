@@ -1,22 +1,19 @@
 <?php
-
+session_start();
 include 'includes/head.html';
-include 'includes/navbar.html';
+include 'includes/navbar.php';
 include 'includes/header.html';
 include 'includes/connect.php';
-
 
 ?>
 
 <div class="container">
     <div class="row">
 
-
 <?php
 
 
-$result = $pdo->query("SELECT * FROM carte WHERE categorie = 'entrées'");
-
+$result = $pdo->query("SELECT * FROM carte WHERE categorie = 'ENTREES'");
 $entrées = $result->fetchAll();
 
 ?>
@@ -25,9 +22,12 @@ $entrées = $result->fetchAll();
 <hr>
 
 <?php foreach($entrées as $entrée): ?>
-<div>
-<span><?php echo $entrée['titre'] .'</br>'. $entrée['descriptions'] .' '. $entrée['prix'] . '€'?></span>
-</div>
+
+<div class="menu">
+    <div class="title-menu"><?php echo $entrée['titre']?></div>
+     <div class="price-menu"><?php echo $entrée['prix']?></div>
+     <div class=""><?php echo $entrée['descriptions']?></div>
+    </div>
 
 <?php endforeach; ?>
 </div>
@@ -36,17 +36,18 @@ $entrées = $result->fetchAll();
 
 <?php
 
-$result = $pdo->query("SELECT * FROM carte WHERE categorie = 'desserts'");
+$result = $pdo->query("SELECT * FROM carte WHERE categorie = 'PLATS'");
 $desserts = $result->fetchAll();
 ?>
 <div class="col-md-4">
-<h2 class="">Desserts</h2>
+<h2 class="">Plats</h2>
 <hr>
 <?php foreach($desserts as $dessert): ?>
 
-    <div>
-    <span><?php echo '<b>' . $dessert['titre'] . '</b>'
-     .  '</br>'. $dessert['descriptions'] .' '. '<b>' . $dessert['prix'] . '€' . '</b>'?></span>
+    <div class="menu">
+    <div class="title-menu"><?php echo $dessert['titre']?></div>
+     <div class="price-menu"><?php echo $dessert['prix']?></div>
+     <div class=""><?php echo $dessert['descriptions']?></div>
     </div>
 
 <?php endforeach; ?>
@@ -56,7 +57,7 @@ $desserts = $result->fetchAll();
 </div>
 <?php
 
-$result = $pdo->query("SELECT * FROM carte WHERE categorie = 'desserts'");
+$result = $pdo->query("SELECT * FROM carte WHERE categorie = 'DESSERTS'");
 $desserts = $result->fetchAll();
 ?>
 <div class="col-md-4">
@@ -64,9 +65,53 @@ $desserts = $result->fetchAll();
 <hr>
 <?php foreach($desserts as $dessert): ?>
 
-    <div>
-    <span><?php echo '<span class ="menu-title" style="font-weight: bold;">' . $dessert['titre'] . '</span>'
-     .  '</br>'. $dessert['descriptions'] .' '. '<b>' . $dessert['prix'] . '€' . '</b>'?></span>
+    <div class="menu">
+    <div class="title-menu"><?php echo $dessert['titre']?></div>
+     <div class="price-menu"><?php echo $dessert['prix']?></div>
+     <div class=""><?php echo $dessert['descriptions']?></div>
+    </div>
+
+    <?php endforeach; ?>
+</div>
+
+<?php
+
+
+$result = $pdo->query("SELECT * FROM carte WHERE categorie = 'SALADES'");
+$entrées = $result->fetchAll();
+
+?>
+<div class="col-md-4">
+<h2 class="">Salades</h2>
+<hr>
+
+<?php foreach($entrées as $entrée): ?>
+
+<div class="menu">
+    <div class="title-menu"><?php echo $entrée['titre']?></div>
+     <div class="price-menu"><?php echo $entrée['prix']?></div>
+     <div class=""><?php echo $entrée['descriptions']?></div>
+    </div>
+
+<?php endforeach; ?>
+</div>
+<?php
+
+
+$result = $pdo->query("SELECT * FROM carte WHERE categorie = 'BURGERS'");
+$entrées = $result->fetchAll();
+
+?>
+<div class="col-md-4">
+<h2 class="">Burgers</h2>
+<hr>
+
+<?php foreach($entrées as $entrée): ?>
+
+<div class="menu">
+    <div class="title-menu"><?php echo $entrée['titre']?></div>
+     <div class="price-menu"><?php echo $entrée['prix']?></div>
+     <div class=""><?php echo $entrée['descriptions']?></div>
     </div>
 
 <?php endforeach; ?>
@@ -74,6 +119,7 @@ $desserts = $result->fetchAll();
 </div>
 </div>
 
+
 <?php
-include 'includes/footer.html';
+include 'includes/footer.php';
 ?>

@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include 'head.html';
 include 'panelnavbar.html';
 include '../includes/connect.php';
@@ -7,36 +7,35 @@ include '../includes/connect.php';
 $statusMsg = '';
 
 if(isset($_POST["submit"]) && !empty($_FILES["file"]["name"]) && isset($_POST["title"])){
-    // Allow certain file formats
     
     $targetDir = "../uploads/";
     $fileName = basename($_FILES["file"]["name"]);
     $targetFilePath = $targetDir . $fileName;
     $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
     $title = $_POST["title"];
- 
+    //autoriser les formats
     $allowTypes = array('jpg','png','jpeg','gif','pdf');
     if(in_array($fileType, $allowTypes)){
-        // Upload file to server
+        // Upload de l'image
         if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
-            // Insert image file name into database
+            // Inserer le nom de l'image dans la base
             $insert = $pdo->query("INSERT into images (file_name, uploaded_on, title) VALUES ('".$fileName."', NOW(), '".$title."')");
             if($insert){
-                $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
+                $statusMsg = "L'image ".$fileName. " a été téléchargée.";
             }else{
-                $statusMsg = "File upload failed, please try again.";
+                $statusMsg = "L'upload a échoué.";
             } 
         }else{
-            $statusMsg = "Sorry, there was an error uploading your file.";
+            $statusMsg = "Désolé une érreur c'est produite.";
         }
     }else{
-        $statusMsg = 'Sorry, only JPG, JPEG, PNG, GIF, & PDF files are allowed to upload.';
+        $statusMsg = 'Désolé ce n\'est pas un format autorisé';
     }
 }else{
-    $statusMsg = 'Please select a file to upload.';
+    $statusMsg = 'Séléctionner une image.';
 }
 
-// Display status message
+// Affichage du message
 echo $statusMsg;
 
 ?>
@@ -47,7 +46,7 @@ echo $statusMsg;
     <div class="row">
 
 <?php
-// Get images from the database
+// Afficher les images de la base.
 $query = $pdo->query("SELECT * FROM images ORDER BY uploaded_on DESC");
 
 
@@ -58,7 +57,6 @@ if($query->rowCount() > 0){
         $image_id = $row['id'];
         if(is_array($row)){
            $row["title"]. "\n";
-           //$image_title = $row['title'];
       }      
 ?>
     <div class="col-md-4 testcontainer">
@@ -72,31 +70,31 @@ if($query->rowCount() > 0){
     <p>Pas d'image trouvée...</p>
 <?php } ?>
 
+</div>
 
 
 <div class="container">
 <div class="mb-3" style="margin-top:100px">
   <h1>Ajouter une image</h1>
   <form method="POST" action="add-img.php" enctype="multipart/form-data">
-    <!--<div class="form-floating mb-3">-->
     <div class="input-group mb-3">
         <span class="input-group-text" id="inputGroup-sizing-default">Titre : </span>
         <input type="text" class="form-control" name="title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
     </div>
-<!--<input type="text" class="form-control"  name="title" placeholder="Ajouter un titre" required>
-    </div>-->
   <label for="images" class="drop-container">
   <input type="file" id="images" name="file" accept="image/*" required>
 </label>
-<!--<button class="btn btn-success" type="submit" name="submit">Ajouter</button>-->
 <div class="col-auto">
   <button class="btn btn-primary mb-3" type="submit" name="submit">Ajouter</button>
 </div>
 </form>
 </div>
 </div>
+</div>
+
 
 
 <?php
-include '../includes/footer.html';
+include 'footer.html';
+
 ?>

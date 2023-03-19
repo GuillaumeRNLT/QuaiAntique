@@ -1,4 +1,4 @@
-.drop-container {
+/*.drop-container {
 	width: 100%;
 	position: relative;
 	display: flex;
@@ -55,4 +55,4 @@
   
   input[type=file]::file-selector-button:hover {
 	background: #0d45a5;
-  }
+  }*/

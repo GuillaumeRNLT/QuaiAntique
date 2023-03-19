@@ -1,23 +1,26 @@
+const rmCheck = document.getElementById("rememberMe"),
+    emailInput = document.getElementById("email");
 
-/*(function () {
-	'use strict'
+if (localStorage.checkbox && localStorage.checkbox !== "") {
+  rmCheck.setAttribute("checked", "checked");
+  emailInput.value = localStorage.username;
+} else {
+  rmCheck.removeAttribute("checked");
+  emailInput.value = "";
+}
 
-	// Fetch all the forms we want to apply custom Bootstrap validation styles to
-	var forms = document.querySelectorAll('.needs-validation')
+function lsRememberMe() {
+  if (rmCheck.checked && emailInput.value !== "") {
+    localStorage.username = emailInput.value;
+    localStorage.checkbox = rmCheck.value;
+  } else {
+    localStorage.username = "";
+    localStorage.checkbox = "";
+  }
+}
+  
 
-	// Loop over them and prevent submission
-	Array.prototype.slice.call(forms)
-		.forEach(function (form) {
-			form.addEventListener('submit', function (event) {
-				if (!form.checkValidity()) {
-					event.preventDefault()
-					event.stopPropagation()
-				}
 
-				form.classList.add('was-validated')
-			}, false)
-		})
-})()*/
 
 
 
@@ -45,3 +48,5 @@ $(document).ready(function(){
 	}
 	);
   });
+
+
