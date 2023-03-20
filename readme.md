@@ -8,3 +8,6 @@ Créer une base de données avec PostgreSQL.
 Se servir du script BD_QUAI_ANTIQUE.SQL.
 Alimenter la base de données avec le script BD_ALIMENTATIONS.SQL.
 
+Pour se connecter en tant qu'administrateur sur la version en ligne : 
+ - Email: omkara88@hotmail.com
+ - Password: triangleantique
